@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 import { Transaction } from '@/types/transaction';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
 
 export async function POST(req: Request) {
   try {
@@ -17,6 +14,23 @@ export async function POST(req: Request) {
     // Filter variable transactions (non-recurring)
     const variableIncome = transactions.filter(t => t.type === 'income' && !t.isRecurring);
     const variableExpenses = transactions.filter(t => t.type === 'expense' && !t.isRecurring);
+
+    if (!process.env.GROQ_API_KEY) {
+      const avgIncome = variableIncome.length > 0 
+        ? variableIncome.reduce((sum, t) => sum + t.amount, 0) / variableIncome.length 
+        : 0;
+      
+      const avgExpenses = variableExpenses.length > 0 
+        ? variableExpenses.reduce((sum, t) => sum + t.amount, 0) / variableExpenses.length 
+        : 0;
+      
+      return NextResponse.json({ 
+        expectedVariableIncome: avgIncome, 
+        expectedVariableExpenses: avgExpenses 
+      });
+    }
+
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
     // If there is very little data, just do a simple average to save tokens, but we promised AI processing
     const summaryData = {

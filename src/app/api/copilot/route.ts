@@ -2,13 +2,16 @@ import { NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 import { AIContextPayload } from '@/types/ai';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
 
 export async function POST(req: Request) {
   try {
     const payload: AIContextPayload = await req.json();
+
+    if (!process.env.GROQ_API_KEY) {
+      return NextResponse.json({ insight: "Modo Local: Configure a API da Groq no .env.local para desbloquear a inteligência artificial preditiva." });
+    }
+
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
     const systemPrompt = `Você é um Co-Piloto Financeiro de Alto Padrão (Calm Fintech).
 Responda sempre em português brasileiro de forma ultra-concisa (máximo 2 frases), focando em reduzir a carga cognitiva do usuário.
