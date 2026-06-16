@@ -2,7 +2,8 @@
 
 Uma plataforma de gerenciamento financeiro de alto padrão projetada para reduzir a carga cognitiva, fornecer insights preditivos usando Inteligência Artificial e focar na estabilidade do seu patrimônio.
 
-![Calm Fintech Dashboard](./public/calm_fintech_preview.png)
+<img width="1213" height="806" alt="{46F8EE3B-1270-4B08-9370-953B44AE48AD}" src="https://github.com/user-attachments/assets/77b0c972-a5c9-4ce3-a99f-81b6dc26a53e" />
+
 
 ## Funcionalidades Principais 🌟
 - **Motor Preditivo com IA (Groq + Llama 3.1)**: Analisa seu histórico de ganhos e gastos variáveis para traçar uma média conservadora na sua projeção estocástica futura. Em momentos de déficit orçamentário (saldo negativo), a IA assume o controle para emitir alertas concisos e empáticos de contenção de liquidez.
