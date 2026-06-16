@@ -1,0 +1,24 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Transaction {
+  id          String   @id @default(uuid())
+  amount      Float
+  category    String
+  description String
+  type        String   // "income" or "expense"
+  isRecurring Boolean  @default(false)
+  date        DateTime @default(now())
+}
+
+model Settings {
+  id          String @id @default("default")
+  bankBalance Float  @default(10000)
+  savingsGoal Float  @default(1000)
+}
